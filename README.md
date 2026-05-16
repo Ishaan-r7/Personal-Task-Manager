@@ -72,5 +72,5 @@ Example response:
 - Spring Boot 3.3.5
 - Spring Data JPA
 - H2 in-memory database
-- Gemini 2.0 Flash API
+- Gemini 2.5 Flash Lite API
 - Maven
