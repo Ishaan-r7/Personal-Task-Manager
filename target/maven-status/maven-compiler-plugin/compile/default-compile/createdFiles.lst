@@ -1,0 +1,17 @@
+com/eulerity/taskmanager/service/TaskService.class
+com/eulerity/taskmanager/repository/TaskRepository.class
+com/eulerity/taskmanager/exception/TaskNotFoundException.class
+com/eulerity/taskmanager/controller/AiTaskController.class
+com/eulerity/taskmanager/model/Status.class
+com/eulerity/taskmanager/controller/TaskController.class
+com/eulerity/taskmanager/dto/task/TaskCreateRequest.class
+com/eulerity/taskmanager/dto/task/TaskUpdateRequest.class
+com/eulerity/taskmanager/TaskManagerApplication.class
+com/eulerity/taskmanager/exception/GlobalExceptionHandler.class
+com/eulerity/taskmanager/dto/ai/TaskSuggestionResponse.class
+com/eulerity/taskmanager/dto/task/TaskResponse.class
+com/eulerity/taskmanager/dto/ai/TaskSuggestionRequest.class
+com/eulerity/taskmanager/model/Priority.class
+com/eulerity/taskmanager/entity/Task.class
+com/eulerity/taskmanager/service/AiTaskSuggestionServiceImpl.class
+com/eulerity/taskmanager/service/AiTaskSuggestionService.class

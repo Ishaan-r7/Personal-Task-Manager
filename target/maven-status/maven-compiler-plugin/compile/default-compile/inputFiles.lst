@@ -1,0 +1,17 @@
+/Users/ishaa/Documents/Projects/Personal Task Manager/src/main/java/com/eulerity/taskmanager/TaskManagerApplication.java
+/Users/ishaa/Documents/Projects/Personal Task Manager/src/main/java/com/eulerity/taskmanager/controller/AiTaskController.java
+/Users/ishaa/Documents/Projects/Personal Task Manager/src/main/java/com/eulerity/taskmanager/controller/TaskController.java
+/Users/ishaa/Documents/Projects/Personal Task Manager/src/main/java/com/eulerity/taskmanager/dto/ai/TaskSuggestionRequest.java
+/Users/ishaa/Documents/Projects/Personal Task Manager/src/main/java/com/eulerity/taskmanager/dto/ai/TaskSuggestionResponse.java
+/Users/ishaa/Documents/Projects/Personal Task Manager/src/main/java/com/eulerity/taskmanager/dto/task/TaskCreateRequest.java
+/Users/ishaa/Documents/Projects/Personal Task Manager/src/main/java/com/eulerity/taskmanager/dto/task/TaskResponse.java
+/Users/ishaa/Documents/Projects/Personal Task Manager/src/main/java/com/eulerity/taskmanager/dto/task/TaskUpdateRequest.java
+/Users/ishaa/Documents/Projects/Personal Task Manager/src/main/java/com/eulerity/taskmanager/entity/Task.java
+/Users/ishaa/Documents/Projects/Personal Task Manager/src/main/java/com/eulerity/taskmanager/exception/GlobalExceptionHandler.java
+/Users/ishaa/Documents/Projects/Personal Task Manager/src/main/java/com/eulerity/taskmanager/exception/TaskNotFoundException.java
+/Users/ishaa/Documents/Projects/Personal Task Manager/src/main/java/com/eulerity/taskmanager/model/Priority.java
+/Users/ishaa/Documents/Projects/Personal Task Manager/src/main/java/com/eulerity/taskmanager/model/Status.java
+/Users/ishaa/Documents/Projects/Personal Task Manager/src/main/java/com/eulerity/taskmanager/repository/TaskRepository.java
+/Users/ishaa/Documents/Projects/Personal Task Manager/src/main/java/com/eulerity/taskmanager/service/AiTaskSuggestionService.java
+/Users/ishaa/Documents/Projects/Personal Task Manager/src/main/java/com/eulerity/taskmanager/service/AiTaskSuggestionServiceImpl.java
+/Users/ishaa/Documents/Projects/Personal Task Manager/src/main/java/com/eulerity/taskmanager/service/TaskService.java

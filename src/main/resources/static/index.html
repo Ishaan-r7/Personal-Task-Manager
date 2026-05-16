@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Task Manager</title>
+    <style>
+        :root {
+            --bg: #f4f1ea;
+            --surface: #fffdf8;
+            --surface-alt: #f8f3ea;
+            --text: #1f2933;
+            --muted: #5b6470;
+            --border: #dccfba;
+            --accent: #1f6f5f;
+            --accent-dark: #174f45;
+            --danger: #b43f3f;
+            --shadow: 0 18px 45px rgba(60, 47, 33, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Georgia, "Times New Roman", serif;
+            background:
+                radial-gradient(circle at top left, rgba(207, 184, 145, 0.35), transparent 28%),
+                linear-gradient(180deg, #f8f5ef 0%, #f1ece2 100%);
+            color: var(--text);
+        }
+
+        .page {
+            width: min(1120px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 32px 0 48px;
+        }
+
+        .hero {
+            padding: 24px 28px;
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            background: rgba(255, 253, 248, 0.9);
+            box-shadow: var(--shadow);
+        }
+
+        .hero h1 {
+            margin: 0;
+            font-size: clamp(2rem, 3vw, 3rem);
+            letter-spacing: -0.04em;
+        }
+
+        .hero p {
+            margin: 12px 0 0;
+            max-width: 700px;
+            color: var(--muted);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 1.2fr 0.9fr;
+            gap: 24px;
+            margin-top: 24px;
+        }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            padding: 24px;
+            box-shadow: var(--shadow);
+        }
+
+        .panel h2 {
+            margin: 0 0 16px;
+            font-size: 1.4rem;
+            letter-spacing: -0.03em;
+        }
+
+        .panel p.section-copy {
+            margin: -4px 0 18px;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            background: var(--surface-alt);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 720px;
+        }
+
+        th, td {
+            padding: 14px 12px;
+            border-bottom: 1px solid var(--border);
+            text-align: left;
+            vertical-align: top;
+            font-size: 0.95rem;
+        }
+
+        th {
+            background: #efe6d7;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .empty-state {
+            padding: 24px;
+            text-align: center;
+            color: var(--muted);
+        }
+
+        form {
+            display: grid;
+            gap: 14px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        label {
+            display: grid;
+            gap: 6px;
+            font-size: 0.95rem;
+            color: var(--muted);
+        }
+
+        input, textarea, select, button {
+            font: inherit;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: #fff;
+            color: var(--text);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 108px;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        button {
+            border: none;
+            border-radius: 999px;
+            padding: 12px 18px;
+            background: var(--accent);
+            color: #fffdf9;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background: var(--accent-dark);
+            transform: translateY(-1px);
+        }
+
+        button.secondary {
+            background: #78624a;
+        }
+
+        .message {
+            min-height: 1.4em;
+            font-size: 0.95rem;
+        }
+
+        .message.error {
+            color: var(--danger);
+        }
+
+        .message.success {
+            color: var(--accent-dark);
+        }
+
+        .suggestion-block {
+            margin-top: 16px;
+            padding: 16px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            background: #fcfaf4;
+            overflow-x: auto;
+        }
+
+        pre {
+            margin: 0;
+            white-space: pre-wrap;
+            word-break: break-word;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 900px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .page {
+                width: min(100% - 20px, 1120px);
+                padding-top: 20px;
+            }
+
+            .hero,
+            .panel {
+                padding: 18px;
+                border-radius: 18px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="page">
+        <section class="hero">
+            <h1>Personal Task Manager</h1>
+            <p>Review tasks, create new ones, and turn plain-language ideas into structured task suggestions with the built-in AI endpoint.</p>
+        </section>
+
+        <section class="layout">
+            <div class="panel">
+                <h2>All Tasks</h2>
+                <p class="section-copy">This table loads automatically from <code>GET /tasks</code> when the page opens.</p>
+                <div id="tasks-error" class="message error"></div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Due Date</th>
+                                <th>Priority</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tasks-table-body">
+                            <tr>
+                                <td colspan="6" class="empty-state">Loading tasks...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h2>Create Task</h2>
+                <p class="section-copy">Submit this form to <code>POST /tasks</code>. A successful create refreshes the task list immediately.</p>
+                <form id="task-form">
+                    <div class="form-grid">
+                        <label>
+                            Title
+                            <input id="title" name="title" type="text" required>
+                        </label>
+                        <label>
+                            Due Date
+                            <input id="dueDate" name="dueDate" type="date">
+                        </label>
+                        <label class="full-width">
+                            Description
+                            <textarea id="description" name="description"></textarea>
+                        </label>
+                        <label>
+                            Priority
+                            <select id="priority" name="priority">
+                                <option value="">Select priority</option>
+                                <option value="LOW">LOW</option>
+                                <option value="MEDIUM">MEDIUM</option>
+                                <option value="HIGH">HIGH</option>
+                            </select>
+                        </label>
+                        <label>
+                            Status
+                            <select id="status" name="status">
+                                <option value="TODO">TODO</option>
+                                <option value="IN_PROGRESS">IN_PROGRESS</option>
+                                <option value="DONE">DONE</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="actions">
+                        <button type="submit">Create Task</button>
+                    </div>
+                    <div id="task-form-message" class="message"></div>
+                </form>
+            </div>
+        </section>
+
+        <section class="panel" style="margin-top: 24px;">
+            <h2>AI Suggest</h2>
+            <p class="section-copy">Describe a task in plain language and this page will call <code>POST /tasks/suggest</code> and display the structured JSON result below.</p>
+            <form id="ai-form">
+                <label>
+                    Plain-language description
+                    <textarea id="ai-description" name="ai-description" placeholder="Example: remind me to submit the quarterly report before Friday" required></textarea>
+                </label>
+                <div class="actions">
+                    <button type="submit" class="secondary">Generate Suggestion</button>
+                </div>
+                <div id="ai-message" class="message"></div>
+            </form>
+            <div class="suggestion-block">
+                <pre id="ai-result">No suggestion yet.</pre>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const tasksTableBody = document.getElementById("tasks-table-body");
+        const tasksError = document.getElementById("tasks-error");
+        const taskForm = document.getElementById("task-form");
+        const taskFormMessage = document.getElementById("task-form-message");
+        const aiForm = document.getElementById("ai-form");
+        const aiMessage = document.getElementById("ai-message");
+        const aiResult = document.getElementById("ai-result");
+
+        function showMessage(element, text, type) {
+            element.textContent = text || "";
+            element.className = "message" + (type ? " " + type : "");
+        }
+
+        function formatCell(value) {
+            return value === null || value === undefined || value === "" ? "—" : value;
+        }
+
+        function renderTasks(tasks) {
+            if (!Array.isArray(tasks) || tasks.length === 0) {
+                tasksTableBody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="empty-state">No tasks yet. Create one using the form.</td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tasksTableBody.innerHTML = tasks.map(task => `
+                <tr>
+                    <td>${formatCell(task.id)}</td>
+                    <td>${formatCell(task.title)}</td>
+                    <td>${formatCell(task.description)}</td>
+                    <td>${formatCell(task.dueDate)}</td>
+                    <td>${formatCell(task.priority)}</td>
+                    <td>${formatCell(task.status)}</td>
+                </tr>
+            `).join("");
+        }
+
+        async function handleApiError(response) {
+            let message = `Request failed with status ${response.status}`;
+
+            try {
+                const data = await response.json();
+                if (typeof data.error === "string") {
+                    message = data.error;
+                }
+                if (Array.isArray(data.details) && data.details.length > 0) {
+                    message += `: ${data.details.join(", ")}`;
+                }
+            } catch (error) {
+                // Fall back to the default message if the response isn't JSON.
+            }
+
+            throw new Error(message);
+        }
+
+        async function loadTasks() {
+            tasksError.textContent = "";
+
+            try {
+                const response = await fetch("/tasks");
+                if (!response.ok) {
+                    await handleApiError(response);
+                }
+
+                const tasks = await response.json();
+                renderTasks(tasks);
+            } catch (error) {
+                tasksTableBody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="empty-state">Unable to load tasks.</td>
+                    </tr>
+                `;
+                showMessage(tasksError, error.message || "Failed to load tasks.", "error");
+            }
+        }
+
+        taskForm.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            showMessage(taskFormMessage, "", "");
+
+            const payload = {
+                title: document.getElementById("title").value.trim(),
+                description: document.getElementById("description").value.trim() || null,
+                dueDate: document.getElementById("dueDate").value || null,
+                priority: document.getElementById("priority").value || null,
+                status: document.getElementById("status").value || null
+            };
+
+            try {
+                const response = await fetch("/tasks", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    await handleApiError(response);
+                }
+
+                taskForm.reset();
+                document.getElementById("status").value = "TODO";
+                showMessage(taskFormMessage, "Task created successfully.", "success");
+                await loadTasks();
+            } catch (error) {
+                showMessage(taskFormMessage, error.message || "Failed to create task.", "error");
+            }
+        });
+
+        aiForm.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            showMessage(aiMessage, "", "");
+            aiResult.textContent = "Loading suggestion...";
+
+            const payload = {
+                description: document.getElementById("ai-description").value.trim()
+            };
+
+            try {
+                const response = await fetch("/tasks/suggest", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    await handleApiError(response);
+                }
+
+                const suggestion = await response.json();
+                aiResult.textContent = JSON.stringify(suggestion, null, 2);
+                showMessage(aiMessage, "Suggestion generated successfully.", "success");
+            } catch (error) {
+                aiResult.textContent = "No suggestion yet.";
+                showMessage(aiMessage, error.message || "Failed to generate suggestion.", "error");
+            }
+        });
+
+        loadTasks();
+    </script>
+</body>
+</html>
