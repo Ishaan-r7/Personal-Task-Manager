@@ -1,5 +1,8 @@
 # Personal Task Manager
 
+## Preview
+![Personal Task Manager](docs/screenshot.png)
+
 ## Overview
 
 Personal Task Manager is a Spring Boot REST API for managing personal tasks with full CRUD functionality and an AI-powered endpoint that converts plain-language descriptions into structured task suggestions using the Gemini API. It also includes a minimal frontend served at [http://localhost:8080](http://localhost:8080).
