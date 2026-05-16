@@ -20,7 +20,7 @@ import org.springframework.util.StringUtils;
 public class AiTaskSuggestionServiceImpl implements AiTaskSuggestionService {
 
     private static final String GEMINI_URL_TEMPLATE =
-            "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=%s";
+            "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=%s";
 
     private final HttpClient httpClient;
     private final ObjectMapper objectMapper;
