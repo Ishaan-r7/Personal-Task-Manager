@@ -44,7 +44,7 @@ All 17 tests pass. No Gemini API key required — the AI call is mocked in tests
 
 ## AI-Powered Endpoint
 
-`POST /tasks/suggest` accepts a plain-language description, calls Gemini 2.0 Flash, and returns structured task JSON without persisting anything to the database.
+`POST /tasks/suggest` accepts a plain-language description, calls Gemini-2.5-Flash-lite, and returns structured task JSON without persisting anything to the database.
 
 Example request:
 
